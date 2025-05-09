@@ -1,13 +1,10 @@
 package com.codedev.api.generators.services;
 
-import org.springframework.stereotype.Service;
-
 import java.util.Random;
 
-@Service
 public class CPFCNPJGeneratorService {
 
-    public String generateRandomCPF() {
+    public static String generateRandomCPF() {
         int[] cpf = new int[11];
         Random random = new Random();
 
@@ -26,7 +23,7 @@ public class CPFCNPJGeneratorService {
         );
     }
 
-    public String generateRandomCNPJ() {
+    public static String generateRandomCNPJ() {
         int[] cnpj = new int[14];
         Random random = new Random();
 
