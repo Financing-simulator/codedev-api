@@ -37,8 +37,9 @@ public class PasswordGeneratorService {
 
     private static int calculateRandomLength() {
         int minLength = 8;
-        int maxLength = CHARACTERS.length - minLength;
+        int maxLength = CHARACTERS.length - (minLength * 3);
+        int randomNumber = random.nextInt(maxLength);
 
-        return random.nextInt(maxLength - minLength);
+        return Math.max(randomNumber, minLength);
     }
 }
