@@ -1,6 +1,8 @@
 package com.codedev.api.generators.services;
 
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class CEPBRAZILIANGeneratorService {
     private static final Map<String, List<int[]>> STATE_POSTAL_RANGES = new HashMap<>();
@@ -62,6 +64,13 @@ public class CEPBRAZILIANGeneratorService {
         int suffix = RANDOM.nextInt(1000); // 3-digit suffix
 
         return String.format("%05d-%03d", prefix, suffix);
+    }
+
+    public static boolean isCEPValid(String cep) {
+        Pattern pattern = Pattern.compile("\\d{5}-\\d{3}");
+        Matcher matcher = pattern.matcher(cep);
+
+        return matcher.find();
     }
 
 }
