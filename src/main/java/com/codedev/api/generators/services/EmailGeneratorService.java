@@ -45,11 +45,15 @@ public class EmailGeneratorService {
         String domain = domains.get(random.nextInt(domains.size()));
         String email = localPart + "@" + domain;
 
-        if (!EMAIL_PATTERN.matcher(email).matches()) {
+        if (!isEmailValid(email)) {
             throw new RuntimeException("Invalid e-mail: " + email);
         }
 
         return email;
+    }
+
+    public boolean isEmailValid(String email) {
+        return EMAIL_PATTERN.matcher(email).matches();
     }
 
     private String generateRandomString(int length) {

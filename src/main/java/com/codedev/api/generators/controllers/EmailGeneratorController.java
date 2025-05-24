@@ -42,4 +42,9 @@ public class EmailGeneratorController {
         }
     }
 
+    @GetMapping("/validate-email/{email}")
+    public ResponseEntity<Boolean> validateEmail(@PathVariable("email") String email) {
+        return ResponseEntity.ok(emailGeneratorService.isEmailValid(email));
+    }
+
 }
