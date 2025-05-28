@@ -2,6 +2,7 @@ package com.codedev.api.generators.controllers;
 
 import com.codedev.api.generators.services.CEPBRAZILIANGeneratorService;
 import jakarta.websocket.server.PathParam;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +18,7 @@ public class CEPBRAZILIANGeneratorController {
         return ResponseEntity.ok(generatedCEP);
     }
 
-    @GetMapping("/generate-cep")
+    @GetMapping("/generate-cep/with-state")
     public ResponseEntity<String> generateRandomCEPState(@RequestParam("state") String state) {
         String generatedCEP = CEPBRAZILIANGeneratorService.generatePostalCode(state.toUpperCase());
 
@@ -29,8 +30,9 @@ public class CEPBRAZILIANGeneratorController {
     }
 
     @GetMapping("/validate")
-    public ResponseEntity<Boolean> validateCEP(@RequestParam("cep") String cep) {
-        return ResponseEntity.ok(CEPBRAZILIANGeneratorService.isCEPValid(cep));
+    @ResponseStatus(HttpStatus.OK)
+    public Boolean validateCEP(@RequestParam("cep") String cep) {
+        return CEPBRAZILIANGeneratorService.isCEPValid(cep);
     }
 
 }

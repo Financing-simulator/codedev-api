@@ -1,6 +1,7 @@
 package com.codedev.api.generators.controllers;
 
 import com.codedev.api.generators.services.CPFCNPJGeneratorService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,10 +25,9 @@ public class CPFCNPJGeneratorController {
     }
 
     @GetMapping("/validate")
-    public ResponseEntity<Boolean> validateCPFOrCNPJ(@RequestParam(name = "cpf") String value) {
-        boolean isValid = value.length() < 14 ? CPFCNPJGeneratorService.isValidCPF(value) : CPFCNPJGeneratorService.isValidCNPJ(value);
-
-        return ResponseEntity.ok(isValid);
+    @ResponseStatus(HttpStatus.OK)
+    public Boolean validateCPFOrCNPJ(@RequestParam(name = "cpf") String value) {
+        return value.length() < 14 ? CPFCNPJGeneratorService.isValidCPF(value) : CPFCNPJGeneratorService.isValidCNPJ(value);
     }
 
 }

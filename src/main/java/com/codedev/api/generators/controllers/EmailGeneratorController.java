@@ -2,6 +2,7 @@ package com.codedev.api.generators.controllers;
 
 import com.codedev.api.generators.services.EmailGeneratorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -44,8 +45,9 @@ public class EmailGeneratorController {
     }
 
     @GetMapping("/validate")
-    public ResponseEntity<Boolean> validateEmail(@RequestParam("email") String email) {
-        return ResponseEntity.ok(emailGeneratorService.isEmailValid(email));
+    @ResponseStatus(HttpStatus.OK)
+    public Boolean validateEmail(@RequestParam("email") String email) {
+        return emailGeneratorService.isEmailValid(email);
     }
 
 }
