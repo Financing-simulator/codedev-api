@@ -9,12 +9,13 @@ import java.util.List;
 
 @RestController
 @CrossOrigin("*")
+@RequestMapping("/email")
 public class EmailGeneratorController {
 
     @Autowired
     EmailGeneratorService emailGeneratorService;
 
-    @GetMapping("/generate-email")
+    @GetMapping("/generate")
     public ResponseEntity<String> generateValidEmail() {
         try {
             emailGeneratorService.setPrefix("codedev.");
@@ -28,7 +29,7 @@ public class EmailGeneratorController {
         }
     }
 
-    @PostMapping("/generate-email/domains")
+    @PostMapping("/generate/domains")
     public ResponseEntity<String> generateValidEmailWithDomains(@RequestBody List<String> domains) {
         try {
             emailGeneratorService.setDomains(domains);
@@ -42,8 +43,8 @@ public class EmailGeneratorController {
         }
     }
 
-    @GetMapping("/validate-email/{email}")
-    public ResponseEntity<Boolean> validateEmail(@PathVariable("email") String email) {
+    @GetMapping("/validate")
+    public ResponseEntity<Boolean> validateEmail(@RequestParam("email") String email) {
         return ResponseEntity.ok(emailGeneratorService.isEmailValid(email));
     }
 
