@@ -26,8 +26,20 @@ public class CPFCNPJGeneratorController {
 
     @GetMapping("/validate")
     @ResponseStatus(HttpStatus.OK)
-    public Boolean validateCPFOrCNPJ(@RequestParam(name = "cpf") String value) {
-        return value.length() < 14 ? CPFCNPJGeneratorService.isValidCPF(value) : CPFCNPJGeneratorService.isValidCNPJ(value);
+    public Boolean validateCPFOrCNPJ(
+            @RequestParam(name = "cpf", required = false) String valueCPF,
+            @RequestParam(name = "cnpj", required = false) String valueCNPJ) {
+
+        if ((valueCPF == null && valueCNPJ == null) || (valueCPF != null && valueCNPJ != null)) {
+            throw new IllegalArgumentException("Informe apenas CPF ou CNPJ, não ambos ou nenhum.");
+        }
+
+        if (valueCPF != null) {
+            return CPFCNPJGeneratorService.isValidCPF(valueCPF);
+        } else {
+            return CPFCNPJGeneratorService.isValidCNPJ(valueCNPJ);
+        }
     }
+
 
 }
